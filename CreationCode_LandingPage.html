@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Creation Code™ — The Brand BodyGuard™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:  #0a0a0a;
+    --gold:   #D4AF37;
+    --gold2:  #B8960C;
+    --white:  #F2EFE8;
+    --gray:   #888880;
+    --dim:    #333330;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(212,175,55,0.08);
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-brand {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .nav-brand span { color: var(--gold); }
+
+  .nav-cta {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid rgba(212,175,55,0.4);
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 48px 100px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .gold-rule {
+    width: 64px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 580px;
+    line-height: 1.75;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+
+  .hero-sub strong {
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .hero-sub-2 {
+    font-family: 'Lato', sans-serif;
+    font-size: clamp(15px, 1.8vw, 18px);
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 540px;
+    line-height: 1.75;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .cta-group {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.95s forwards;
+  }
+
+  .cta-primary {
+    display: inline-block;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 20px 48px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+
+  .cta-primary:hover::after { transform: translateX(0); }
+
+  .cta-free {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ── VERTICAL TEXT ── */
+  .vertical-text {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+    z-index: 10;
+  }
+
+  /* ── PROOF STRIP ── */
+  .proof-strip {
+    border-top: 1px solid var(--dim);
+    border-bottom: 1px solid var(--dim);
+    padding: 28px 48px;
+    display: flex;
+    gap: 64px;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: rgba(20,20,18,0.6);
+  }
+
+  .proof-item {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .proof-item::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── WHAT IT IS ── */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 120px 48px;
+  }
+
+  .section-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 48px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .col-head {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 32px;
+  }
+
+  .col-head em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .col-body {
+    font-family: 'Lato', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .col-body strong { color: var(--white); font-weight: 400; }
+
+  /* ── FRAMEWORK STRIP ── */
+  .framework-strip {
+    background: rgba(212,175,55,0.04);
+    border-top: 1px solid rgba(212,175,55,0.15);
+    border-bottom: 1px solid rgba(212,175,55,0.15);
+    padding: 64px 48px;
+    text-align: center;
+  }
+
+  .framework-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .framework-steps {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3.5vw, 48px);
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .framework-steps span { color: var(--gold); }
+
+  .framework-note {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 48px;
+    text-align: center;
+    border-top: 1px solid var(--dim);
+  }
+
+  .pull-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+
+  .pull-attr {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    background: rgba(212,175,55,0.03);
+    border-top: 1px solid rgba(212,175,55,0.15);
+    padding: 120px 48px;
+    text-align: center;
+  }
+
+  .final-cta-head {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .final-cta-head em { color: var(--gold); font-style: italic; }
+
+  .final-cta-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid var(--dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .footer-brand span { color: var(--gold); }
+
+  .footer-note {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .hero { padding: 120px 24px 80px; }
+    .two-col { grid-template-columns: 1fr; gap: 40px; }
+    .section { padding: 80px 24px; }
+    .proof-strip { padding: 24px; gap: 32px; }
+    .framework-strip { padding: 48px 24px; }
+    .pull-section { padding: 80px 24px; }
+    .final-cta { padding: 80px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+    .vertical-text { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="vertical-text">The Brand BodyGuard™</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">The Brand <span>BodyGuard™</span></div>
+  <a href="https://payhip.com/b/kJGcF" class="nav-cta">Get The Framework</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Free Framework — The Creation Code™</div>
+  <h1 class="hero-headline">
+    You were not<br>overlooked.<br><em>You were misfiled.</em>
+  </h1>
+  <div class="gold-rule"></div>
+  <p class="hero-sub">
+    Most leaders do not have a growth problem. They have an <strong>order problem.</strong> The effort is real. The sequence is wrong. And wrong sequence does not announce itself. It just quietly costs you.
+  </p>
+  <p class="hero-sub-2">
+    The Creation Code is a framework built on the oldest observable pattern of sustainable growth. Read it once and you will not see your business the same way again.
+  </p>
+  <div class="cta-group">
+    <a href="https://payhip.com/b/kJGcF" class="cta-primary">Get The Framework</a>
+    <span class="cta-free">Free. No catch.</span>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <div class="proof-item">Diagnostic Framework</div>
+  <div class="proof-item">4 Steps. One Direction.</div>
+  <div class="proof-item">Instant Download</div>
+  <div class="proof-item">No Fluff. No Funnel.</div>
+</div>
+
+<!-- WHAT IT IS -->
+<section class="section">
+  <div class="section-label">What This Is</div>
+  <div class="two-col">
+    <div>
+      <h2 class="col-head">The problem<br>was never<br><em>the work.</em></h2>
+    </div>
+    <div>
+      <p class="col-body">
+        The work is strong. The read is wrong. Somewhere in the order, something got skipped. Role was never locked. Resources were thin when performance was demanded. Reach was chased before the foundation could hold it.
+      </p>
+      <p class="col-body">
+        <strong>This is not a course. It is not a funnel.</strong> It is a diagnostic in document form. The Creation Code shows you exactly where the breakdown happens in business, what it costs, and why more effort in the wrong order has never fixed it.
+      </p>
+      <p class="col-body">
+        Download it and find out where your order broke.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK STRIP -->
+<div class="framework-strip">
+  <div class="framework-label">The Framework</div>
+  <div class="framework-steps">
+    Role <span>→</span> Resources <span>→</span> Responsibility <span>→</span> Reach
+  </div>
+  <div class="framework-note">Nothing skips a step. Nothing scales out of order.</div>
+</div>
+
+<!-- PULL QUOTE -->
+<div class="pull-section">
+  <div class="pull-quote">
+    "Sustainable growth is not driven by intensity.<br>It is driven by order."
+  </div>
+  <div class="pull-attr">The Creation Code™</div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2 class="final-cta-head">
+    Find out where<br>your order <em>broke.</em>
+  </h2>
+  <p class="final-cta-sub">
+    Free download. Instant access. One framework that changes how you see every decision you make next.
+  </p>
+  <a href="https://payhip.com/b/kJGcF" class="cta-primary">Get The Framework — Free</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">The Brand <span>BodyGuard™</span></div>
+  <div class="footer-note">© 2026 The Brand BodyGuard™ — All rights reserved.</div>
+</footer>
+
+</body>
+</html>
